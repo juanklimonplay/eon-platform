@@ -1,40 +1,573 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Eon Platform</title>
-<meta name="description" content="WhatsApp automation and AI customer service for small businesses in Latin America.">
+<meta name="description" content="Eon Platform: AI customer service on WhatsApp for small businesses in Latin America. Built in Argentine Patagonia by a solo founder with Claude Code.">
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230e3b36'/%3E%3Cpath d='M8 22 16 8l8 14z' fill='none' stroke='%2353e0b4' stroke-width='3' stroke-linejoin='round'/%3E%3C/svg%3E">
 <style>
-:root{--bg:#0b1020;--card:#141a30;--fg:#e8ecf7;--mut:#9aa3bd;--acc:#25d366}
-*{box-sizing:border-box}body{margin:0;font-family:system-ui,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--fg);line-height:1.6}
-.w{max-width:960px;margin:0 auto;padding:0 16px}
-header{padding:72px 0 40px}h1{font-size:clamp(2rem,6vw,3.2rem);margin:0 0 12px}
-.lead{font-size:1.2rem;color:var(--mut);max-width:640px}
-.tag{color:var(--acc);font-weight:600;letter-spacing:.05em;text-transform:uppercase;font-size:.85rem}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:32px 0}
-.c{background:var(--card);border-radius:14px;padding:20px}.c h3{margin:0 0 6px}.c p{margin:0;color:var(--mut)}
-a.btn{display:inline-block;margin-top:20px;background:var(--acc);color:#04210f;padding:12px 22px;border-radius:10px;font-weight:700;text-decoration:none}
-footer{padding:40px 0;color:var(--mut);font-size:.9rem}
+:root{
+  --bg:#f6f4ef;--bg2:#ece8df;--card:#ffffff;--fg:#141a1f;--mut:#4d5862;--line:#d6d0c4;
+  --acc:#0b7a5c;--acc2:#c2410c;--accbg:#d9f2e8;--glow:rgba(11,122,92,.18);--code:#eef0ea;
+  --radius:18px;--max:1120px;
+  --font:"Space Grotesk",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0a1014;--bg2:#10181d;--card:#131d23;--fg:#e9efe9;--mut:#a3b0b5;--line:#24333b;
+  --acc:#53e0b4;--acc2:#ff9a5c;--accbg:#0f3229;--glow:rgba(83,224,180,.16);--code:#0d151a;}}
+:root[data-theme="dark"]{
+  --bg:#0a1014;--bg2:#10181d;--card:#131d23;--fg:#e9efe9;--mut:#a3b0b5;--line:#24333b;
+  --acc:#53e0b4;--acc2:#ff9a5c;--accbg:#0f3229;--glow:rgba(83,224,180,.16);--code:#0d151a;}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font);line-height:1.6;font-size:17px;overflow-x:hidden}
+img,svg{max-width:100%;display:block}
+a{color:var(--acc)}
+:focus-visible{outline:3px solid var(--acc2);outline-offset:3px;border-radius:6px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--fg);color:var(--bg);padding:8px 14px;border-radius:8px;z-index:99}
+.skip:focus{left:16px}
+.w{max-width:var(--max);margin:0 auto;padding:0 16px}
+@media (min-width:720px){.w{padding:0 32px}}
+code,.mono{font-family:var(--mono);font-size:.88em}
+.kicker{font-family:var(--mono);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);margin:0 0 12px;display:flex;align-items:center;gap:10px}
+.kicker::before{content:"";width:22px;height:2px;background:currentColor}
+h1,h2,h3{line-height:1.15;letter-spacing:-.02em;margin:0}
+h2{font-size:clamp(1.8rem,4.5vw,2.8rem);margin-bottom:16px;max-width:22ch}
+h3{font-size:1.25rem}
+p{margin:0 0 14px}
+.lead{font-size:clamp(1.05rem,2.2vw,1.25rem);color:var(--mut);max-width:62ch}
+section{padding:88px 0;border-top:1px solid var(--line)}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav .w{display:flex;align-items:center;gap:12px;height:62px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--fg);text-decoration:none;margin-right:auto}
+.brand svg{width:28px;height:28px}
+.navlinks{display:none;gap:20px}
+.navlinks a{color:var(--mut);text-decoration:none;font-size:.92rem}
+.navlinks a:hover{color:var(--fg)}
+@media (min-width:960px){.navlinks{display:flex}}
+.tbtn{font:inherit;font-size:.85rem;font-weight:600;background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:999px;padding:7px 13px;cursor:pointer;min-height:38px;display:inline-flex;align-items:center;gap:6px}
+.tbtn:hover{border-color:var(--acc)}
+
+/* hero */
+.hero{padding:72px 0 88px;border:0;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:-20% -10% auto auto;width:640px;height:640px;background:radial-gradient(circle,var(--glow),transparent 65%);pointer-events:none}
+.hero .w{display:grid;gap:48px;position:relative}
+@media (min-width:960px){.hero .w{grid-template-columns:1.15fr .85fr;align-items:center}}
+.hero h1{font-size:clamp(2.4rem,7vw,4.4rem);margin:8px 0 22px}
+.hero h1 em{font-style:normal;color:var(--acc)}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0 30px;padding:0;list-style:none}
+.pills li{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 13px;font-size:.88rem;color:var(--mut)}
+.pills li b{color:var(--fg);font-weight:600}
+.ctas{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:12px;font-weight:700;text-decoration:none;border:1px solid transparent;min-height:48px}
+.btn.p{background:var(--acc);color:var(--bg)}
+.btn.s{border-color:var(--line);color:var(--fg);background:var(--card)}
+.btn:hover{transform:translateY(-1px)}
+
+/* phone mock */
+.phone{width:min(330px,100%);margin:0 auto;background:var(--card);border:1px solid var(--line);border-radius:34px;padding:14px;box-shadow:0 30px 80px -30px rgba(0,0,0,.35)}
+.phone .top{display:flex;align-items:center;gap:10px;padding:8px 8px 14px;border-bottom:1px solid var(--line)}
+.ava{width:34px;height:34px;border-radius:50%;background:var(--accbg);display:grid;place-items:center;color:var(--acc);font-weight:700;font-size:.8rem}
+.phone .top small{display:block;color:var(--mut);font-size:.75rem}
+.chat{display:flex;flex-direction:column;gap:10px;padding:16px 4px 6px;min-height:330px}
+.msg{max-width:84%;padding:9px 12px;border-radius:14px;font-size:.88rem;line-height:1.4;opacity:0;transform:translateY(8px);animation:pop .5s forwards}
+.msg.in{background:var(--bg2);align-self:flex-start;border-bottom-left-radius:4px}
+.msg.out{background:var(--accbg);align-self:flex-end;border-bottom-right-radius:4px}
+.msg.file{font-family:var(--mono);font-size:.78rem}
+.msg:nth-child(1){animation-delay:.3s}.msg:nth-child(2){animation-delay:1.1s}.msg:nth-child(3){animation-delay:1.9s}.msg:nth-child(4){animation-delay:2.7s}.msg:nth-child(5){animation-delay:3.5s}
+.phone figcaption{font-size:.75rem;color:var(--mut);text-align:center;padding-top:8px}
+@keyframes pop{to{opacity:1;transform:none}}
+
+/* problem/solution */
+.split{display:grid;gap:20px;margin-top:36px}
+@media (min-width:820px){.split{grid-template-columns:1fr 1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px}
+.card h3{margin-bottom:10px}
+.card p,.card li{color:var(--mut)}
+.card ul{margin:0;padding-left:20px}
+.card li{margin-bottom:8px}
+.card.prob{border-top:4px solid var(--acc2)}
+.card.sol{border-top:4px solid var(--acc)}
+
+/* products */
+.prod{display:grid;gap:20px;margin-top:40px}
+@media (min-width:820px){.prod{grid-template-columns:repeat(6,1fr)}.prod>.big{grid-column:span 3}.prod>.sm{grid-column:span 2}}
+.prod .card{display:flex;flex-direction:column;gap:6px;transition:border-color .2s,transform .2s}
+.prod .card:hover{border-color:var(--acc);transform:translateY(-3px)}
+.tag{display:inline-block;font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:999px;background:var(--accbg);color:var(--fg);align-self:flex-start;margin-bottom:6px}
+.tag.live::before{content:"● ";color:var(--acc)}
+.feat{list-style:none;padding:0;margin:10px 0 0}
+.feat li{padding:7px 0 7px 26px;position:relative;border-top:1px dashed var(--line)}
+.feat li::before{content:"→";position:absolute;left:2px;color:var(--acc);font-weight:700}
+.icon{width:44px;height:44px;margin-bottom:6px}
+.icon *{stroke:var(--acc);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* placeholders */
+.ph{border:2px dashed var(--line);border-radius:14px;min-height:150px;display:grid;place-items:center;text-align:center;color:var(--mut);font-family:var(--mono);font-size:.8rem;padding:16px;margin-top:14px;background:repeating-linear-gradient(135deg,transparent 0 12px,color-mix(in srgb,var(--line) 30%,transparent) 12px 13px)}
+.ph.video{aspect-ratio:16/9;min-height:0;margin-top:40px}
+.ph.video svg{width:56px;height:56px;margin:0 auto 10px}
+
+/* claude */
+.cl{display:grid;gap:20px;margin-top:40px}
+@media (min-width:820px){.cl{grid-template-columns:1fr 1fr}}
+.term{background:var(--code);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;font-family:var(--mono);font-size:.82rem}
+.term .bar{display:flex;gap:6px;padding:11px 14px;border-bottom:1px solid var(--line)}
+.term .bar i{width:10px;height:10px;border-radius:50%;background:var(--line)}
+.term pre{margin:0;padding:18px;white-space:pre-wrap;word-break:break-word;line-height:1.7;color:var(--mut)}
+.term .k{color:var(--acc)}.term .o{color:var(--acc2)}.term .f{color:var(--fg)}
+.flow{list-style:none;counter-reset:s;padding:0;margin:0}
+.flow li{counter-increment:s;padding:14px 0 14px 52px;position:relative;border-top:1px solid var(--line)}
+.flow li:first-child{border-top:0}
+.flow li::before{content:counter(s,decimal-leading-zero);position:absolute;left:0;top:14px;font-family:var(--mono);color:var(--acc);font-weight:600}
+.flow b{display:block;color:var(--fg)}
+.flow span{color:var(--mut)}
+
+/* lab */
+.lab{display:grid;gap:16px;margin-top:40px}
+@media (min-width:720px){.lab{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1040px){.lab{grid-template-columns:repeat(3,1fr)}.lab .wide{grid-column:span 2}}
+.bars{margin-top:14px;display:grid;gap:10px}
+.bar-row{display:grid;grid-template-columns:7.5rem 1fr auto;gap:10px;align-items:center;font-size:.85rem}
+.track{height:12px;background:var(--bg2);border-radius:999px;overflow:hidden}
+.fill{height:100%;border-radius:999px;background:var(--acc2);width:0;transition:width 1.2s cubic-bezier(.2,.8,.2,1)}
+.fill.ok{background:var(--acc)}
+.in-view .fill{width:var(--w)}
+.bar-row .mono{color:var(--fg);font-weight:600}
+.note{font-size:.8rem;color:var(--mut);margin-top:10px}
+
+/* arch */
+.arch{margin-top:36px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;overflow:hidden}
+.arch svg{width:100%;height:auto}
+.arch text{font-family:var(--font);fill:var(--fg);font-size:15px}
+.arch .sub{fill:var(--mut);font-size:12px;font-family:var(--mono)}
+.arch .box{fill:var(--bg2);stroke:var(--line);stroke-width:1.5}
+.arch .box.a{fill:var(--accbg);stroke:var(--acc)}
+.arch .ln{stroke:var(--mut);stroke-width:1.6;fill:none;marker-end:url(#ar)}
+.arch .ln.d{stroke-dasharray:6 6;stroke:var(--acc2)}
+.arch .flowdot{fill:var(--acc)}
+.arch-h{display:none}.arch-v{display:block}
+@media (min-width:760px){.arch-h{display:block}.arch-v{display:none}}
+.legend{display:flex;flex-wrap:wrap;gap:18px;margin-top:14px;font-size:.85rem;color:var(--mut)}
+.legend span::before{content:"";display:inline-block;width:22px;height:0;border-top:2px solid var(--mut);vertical-align:middle;margin-right:8px}
+.legend span.d::before{border-top:2px dashed var(--acc2)}
+
+/* roadmap */
+.road{list-style:none;padding:0;margin:40px 0 0;display:grid;gap:16px}
+@media (min-width:820px){.road{grid-template-columns:repeat(3,1fr)}}
+.road li{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px}
+.road .st{font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:var(--acc)}
+.road ul{padding-left:18px;margin:10px 0 0;color:var(--mut)}
+
+/* contact */
+.contact{text-align:center}
+.contact h2{margin:0 auto 16px}
+.contact .lead{margin:0 auto 28px}
+.contact .ctas{justify-content:center}
+footer{padding:36px 0;border-top:1px solid var(--line);color:var(--mut);font-size:.88rem}
+footer .w{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+.rv.in-view{opacity:1;transform:none}
+.no-js .rv{opacity:1;transform:none}
+.no-js .fill{width:var(--w)}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition:none!important}
+  .rv{opacity:1;transform:none}
+  .fill{width:var(--w)}
+  .arch .flowdot{display:none}
+}
 </style>
 </head>
-<body>
-<div class="w">
-<header>
-<div class="tag">Eon Platform</div>
-<h1>AI customer service on WhatsApp for small businesses</h1>
-<p class="lead">Eon gives every business its own WhatsApp assistant that answers customers 24/7, plus a shared inbox, CRM and audit log for the team. Built in Argentina for Latin America.</p>
-<a class="btn" href="mailto:hello@eon.is-a.dev">Contact us</a>
+<body class="no-js">
+<a class="skip" href="#main" data-i18n="skip">Skip to content</a>
+
+<header class="nav">
+  <div class="w">
+    <a class="brand" href="#top" aria-label="Eon Platform">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="var(--accbg)"/><path d="M8 22 16 8l8 14z" fill="none" stroke="var(--acc)" stroke-width="3" stroke-linejoin="round"/></svg>
+      Eon Platform
+    </a>
+    <nav class="navlinks" aria-label="Sections">
+      <a href="#problem" data-i18n="n1">Problem</a>
+      <a href="#products" data-i18n="n2">Products</a>
+      <a href="#claude" data-i18n="n3">Claude</a>
+      <a href="#lab" data-i18n="n4">Lab</a>
+      <a href="#architecture" data-i18n="n5">Architecture</a>
+      <a href="#contact" data-i18n="n6">Contact</a>
+    </nav>
+    <button class="tbtn" id="lang" type="button" aria-label="Cambiar a español">ES</button>
+    <button class="tbtn" id="theme" type="button" aria-label="Toggle dark mode">
+      <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </button>
+  </div>
 </header>
-<section class="grid">
-<div class="c"><h3>Multi-business</h3><p>Each business gets an isolated workspace with admin and operator roles.</p></div>
-<div class="c"><h3>Multiple WhatsApp lines</h3><p>Connect several numbers by QR or pairing code, with automatic reconnection.</p></div>
-<div class="c"><h3>AI assistant</h3><p>A customizable prompt per business so the assistant speaks like your brand.</p></div>
-<div class="c"><h3>Customer CRM</h3><p>Tags, notes, status and history for every customer.</p></div>
-<div class="c"><h3>Full audit log</h3><p>Every action recorded, filterable and exportable to CSV.</p></div>
-<div class="c"><h3>Real-time dashboard</h3><p>A modern web panel with live updates over WebSocket.</p></div>
+
+<main id="main">
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="w">
+    <div>
+      <p class="kicker" data-i18n="h_k">Claude for Startups · application</p>
+      <h1 data-i18n-html="h_t">AI customer service on <em>WhatsApp</em> for Latin America's small businesses.</h1>
+      <p class="lead" data-i18n="h_l">Eon Platform turns a business's WhatsApp number into an assistant that answers, signs people up, collects payments and keeps records — in Spanish, the way people there actually talk. Built from Argentine Patagonia by one founder, with no outside funding, using Claude Code.</p>
+      <ul class="pills">
+        <li data-i18n-html="p1"><b>Solo founder</b> · JuanKLimoN</li>
+        <li data-i18n-html="p2"><b>Bootstrapped</b> · no investment</li>
+        <li data-i18n-html="p3"><b>Patagonia</b>, Argentina</li>
+        <li data-i18n-html="p4"><b>Built with</b> Claude Code</li>
+      </ul>
+      <div class="ctas">
+        <a class="btn p" href="#products" data-i18n="c1">See the products</a>
+        <a class="btn s" href="mailto:juan@eonplatform.eu.org" data-i18n="c2">Get in touch</a>
+      </div>
+    </div>
+    <figure class="phone" style="margin:0 auto">
+      <div class="top"><div class="ava" aria-hidden="true">S</div><div><b>Sedes</b><small data-i18n="ph_s">club assistant · illustrative</small></div></div>
+      <div class="chat" aria-label="Illustrative conversation">
+        <div class="msg in" data-i18n="m1">Hola! Quiero hacerme socio 🙌</div>
+        <div class="msg out" data-i18n="m2">¡Genial! Te paso el link de Mercado Pago o el alias para transferir.</div>
+        <div class="msg in file">📎 comprobante.jpg</div>
+        <div class="msg out" data-i18n="m3">Leí el comprobante ✅ Pago confirmado.</div>
+        <div class="msg out" data-i18n="m4">Acá está tu carnet digital 🪪</div>
+      </div>
+      <figcaption data-i18n="ph_c">Illustrative flow, not a real customer conversation.</figcaption>
+    </figure>
+  </div>
 </section>
-<footer>© 2026 Eon Platform · Argentina</footer>
-</div>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="w rv">
+    <p class="kicker" data-i18n="pr_k">01 · Problem &amp; solution</p>
+    <h2 data-i18n="pr_t">In Latin America, business happens on WhatsApp.</h2>
+    <p class="lead" data-i18n="pr_l">Clubs, hotels and tradespeople get their customers through chat — but the person answering is usually the owner, between everything else.</p>
+    <div class="split">
+      <div class="card prob">
+        <h3 data-i18n="pb_t">The problem</h3>
+        <ul>
+          <li data-i18n="pb1">Messages pile up after hours and on weekends; replies come late or never.</li>
+          <li data-i18n="pb2">Payments arrive as transfer screenshots that someone has to check by hand.</li>
+          <li data-i18n="pb3">Member lists and records live in notebooks or scattered spreadsheets.</li>
+          <li data-i18n="pb4">Enterprise tools are priced, designed and written for other markets.</li>
+        </ul>
+      </div>
+      <div class="card sol">
+        <h3 data-i18n="sl_t">The solution</h3>
+        <ul>
+          <li data-i18n="sl1">An AI assistant on the business's own WhatsApp number, answering at any hour.</li>
+          <li data-i18n="sl2">Payments via Mercado Pago or bank transfer, with the AI reading the receipt.</li>
+          <li data-i18n="sl3">Records, roles and a CRM in a web panel that updates in real time.</li>
+          <li data-i18n="sl4">Vertical products shaped for each kind of business, on one shared platform.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="w rv">
+    <p class="kicker" data-i18n="pd_k">02 · Products</p>
+    <h2 data-i18n="pd_t">One platform, several businesses on top.</h2>
+    <p class="lead" data-i18n="pd_l">Each product is a WhatsApp bot with its own personality and flows, running on the same multi-tenant core.</p>
+    <div class="prod">
+      <article class="card big">
+        <span class="tag live" data-i18n="t_live">In use at a real sports club</span>
+        <svg class="icon" viewBox="0 0 44 44" aria-hidden="true"><rect x="6" y="10" width="32" height="24" rx="4"/><circle cx="16" cy="21" r="4"/><path d="M11 30c1-3 3-4 5-4s4 1 5 4M25 19h8M25 24h6"/></svg>
+        <h3>Sedes</h3>
+        <p data-i18n="sd_l">A WhatsApp bot for clubs that handles membership end to end.</p>
+        <ul class="feat">
+          <li data-i18n="sd1">Signs up new members through the chat</li>
+          <li data-i18n="sd2">Collects fees via Mercado Pago or bank transfer</li>
+          <li data-i18n="sd3">The AI reads the transfer receipt to validate the payment</li>
+          <li data-i18n="sd4">Issues a digital membership card</li>
+        </ul>
+        <div class="ph" data-i18n="ph1">[ Screenshot placeholder · Sedes conversation ]</div>
+      </article>
+      <article class="card big">
+        <span class="tag" data-i18n="t_biz">The business behind Sedes</span>
+        <svg class="icon" viewBox="0 0 44 44" aria-hidden="true"><path d="M22 6 36 12v9c0 9-6 15-14 17C14 36 8 30 8 21v-9z"/><path d="m16 22 4 4 8-8"/></svg>
+        <h3>Sonriar</h3>
+        <p data-i18n="so_l">Sells and operates Sedes. Its sales bot is fronted by Guardián, the brand's mascot.</p>
+        <ul class="feat">
+          <li data-i18n="so1">Sales bot on WhatsApp with the Guardián mascot</li>
+          <li data-i18n="so2">Customer panel with license management</li>
+          <li data-i18n="so3">Live status of every installation</li>
+          <li data-i18n="so4">Suspension of service for non-payment</li>
+        </ul>
+        <div class="ph" data-i18n="ph2">[ Screenshot placeholder · Sonriar licence panel ]</div>
+      </article>
+      <article class="card sm">
+        <svg class="icon" viewBox="0 0 44 44" aria-hidden="true"><path d="M27 9a7 7 0 0 0-8 9L9 28l7 7 10-10a7 7 0 0 0 9-8l-4 4-5-1-1-5z"/></svg>
+        <h3>Multiservicios Santa Cruz</h3>
+        <p data-i18n="ms_l">A WhatsApp directory of tradespeople across the province of Santa Cruz: ask for a plumber or electrician, get a match.</p>
+      </article>
+      <article class="card sm">
+        <svg class="icon" viewBox="0 0 44 44" aria-hidden="true"><path d="M6 34V18h32v16M6 26h32M12 18v-6h20v6"/><circle cx="14" cy="22" r="2"/></svg>
+        <h3 data-i18n="ho_t">Hotel bot</h3>
+        <p data-i18n="ho_l">A guest-facing assistant on WhatsApp that answers questions and inquiries for a hotel.</p>
+      </article>
+      <article class="card sm">
+        <svg class="icon" viewBox="0 0 44 44" aria-hidden="true"><rect x="6" y="6" width="14" height="14" rx="3"/><rect x="24" y="6" width="14" height="14" rx="3"/><rect x="6" y="24" width="14" height="14" rx="3"/><rect x="24" y="24" width="14" height="14" rx="3"/></svg>
+        <h3 data-i18n="mt_t">Multi-tenant platform</h3>
+        <p data-i18n="mt_l">The core: isolated workspaces per business, admin/operator roles, CRM, a full audit log and a real-time panel.</p>
+      </article>
+    </div>
+    <div class="ph video" role="img" aria-label="Video placeholder">
+      <div><svg viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="26" fill="none" stroke="currentColor" stroke-width="2"/><path d="M23 18v20l16-10z" fill="currentColor"/></svg><span data-i18n="vid">[ Future video placeholder · product walkthrough ]</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CLAUDE -->
+<section id="claude">
+  <div class="w rv">
+    <p class="kicker" data-i18n="cl_k">03 · How Eon uses Claude</p>
+    <h2 data-i18n="cl_t">Claude in the product, and Claude building it.</h2>
+    <p class="lead" data-i18n="cl_l">Two roles: Claude is the primary AI provider behind every bot, and Claude Code is how a single person ships a platform of this size.</p>
+    <div class="cl">
+      <div class="card">
+        <h3 data-i18n="cp_t">In production</h3>
+        <ol class="flow">
+          <li><b data-i18n="cp1b">Primary provider</b><span data-i18n="cp1">Claude handles the conversations, the business-specific prompt and reading payment receipts.</span></li>
+          <li><b data-i18n="cp2b">Automatic fallback</b><span data-i18n="cp2">If a call fails, the platform switches to a backup provider so the customer still gets an answer.</span></li>
+          <li><b data-i18n="cp3b">One prompt per business</b><span data-i18n="cp3">Each tenant configures how its assistant speaks.</span></li>
+        </ol>
+      </div>
+      <div class="card">
+        <h3 data-i18n="cd_t">In development</h3>
+        <ol class="flow">
+          <li><b data-i18n="cd1b">End to end with Claude Code</b><span data-i18n="cd1">Backend, panel, bots and side projects are written with Claude Code.</span></li>
+          <li><b data-i18n="cd2b">Security reviews &amp; tests</b><span data-i18n="cd2">Changes go through security reviews and tests before merging.</span></li>
+          <li><b data-i18n="cd3b">Cloud sessions → pull requests</b><span data-i18n="cd3">Work runs in Claude Code cloud sessions and lands as reviewed PRs — including this page.</span></li>
+        </ol>
+      </div>
+      <div class="term" style="grid-column:1/-1" aria-label="Simplified pseudo-code of the AI provider fallback">
+        <div class="bar" aria-hidden="true"><i></i><i></i><i></i></div>
+<pre><span class="o">// simplified sketch of the idea, not the actual source</span>
+<span class="k">async function</span> <span class="f">reply</span>(tenant, chat) {
+  <span class="k">try</span>   { <span class="k">return await</span> <span class="f">claude</span>(tenant.prompt, chat) }   <span class="o">// primary</span>
+  <span class="k">catch</span> { <span class="k">return await</span> <span class="f">backup</span>(tenant.prompt, chat) }   <span class="o">// automatic fallback</span>
+}</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LAB -->
+<section id="lab">
+  <div class="w rv">
+    <p class="kicker" data-i18n="lb_k">04 · The founder's lab</p>
+    <h2 data-i18n="lb_t">Other things built along the way.</h2>
+    <p class="lead" data-i18n="lb_l">Side projects where JuanKLimoN tries hard problems — audio, memory bugs, offline voice, accessibility. Also built with Claude Code.</p>
+    <div class="lab">
+      <article class="card wide">
+        <span class="tag">C# · Bluetooth · audio</span>
+        <h3>EonPS4Controller</h3>
+        <p data-i18n="ps_l">A Spanish-language fork of DS4Windows that streams audio to the PS4 controller over Bluetooth, written in C# with a custom SBC codec. It also fixes a memory-corruption bug, with the fix measured:</p>
+        <div class="bars" role="img" aria-label="Crashes: 7 of 16 runs without the fix, 0 of 12 runs with the fix">
+          <div class="bar-row"><span data-i18n="b1">Without fix</span><div class="track"><div class="fill" style="--w:43.75%"></div></div><span class="mono">7/16</span></div>
+          <div class="bar-row"><span data-i18n="b2">With fix</span><div class="track"><div class="fill ok" style="--w:1.5%"></div></div><span class="mono">0/12</span></div>
+        </div>
+        <p class="note" data-i18n="b_n">Crashes per test run.</p>
+      </article>
+      <article class="card">
+        <span class="tag">music</span>
+        <h3>EonTone</h3>
+        <p data-i18n="et_l">A music looper played with the game controller.</p>
+      </article>
+      <article class="card">
+        <span class="tag" data-i18n="la_tag">offline voice</span>
+        <h3>LAYA</h3>
+        <p data-i18n="la_l">A local voice assistant in Spanish that works without internet, with Claude as optional help.</p>
+      </article>
+      <article class="card">
+        <span class="tag">remote</span>
+        <h3>EonCT</h3>
+        <p data-i18n="ct_l">Control your PC from a tablet.</p>
+      </article>
+      <article class="card">
+        <span class="tag" data-i18n="br_tag">accessibility</span>
+        <h3>Brisa</h3>
+        <p data-i18n="br_l">An app that teaches people how to use a mouse.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ARCHITECTURE -->
+<section id="architecture">
+  <div class="w rv">
+    <p class="kicker" data-i18n="ar_k">05 · Architecture</p>
+    <h2 data-i18n="ar_t">How a message flows through Eon.</h2>
+    <p class="lead" data-i18n="ar_l">A Node backend keeps WhatsApp sessions alive through Baileys, persists everything with Prisma, and pushes live updates to the React panel.</p>
+    <figure class="arch" style="margin-left:0;margin-right:0">
+      <svg class="arch-h" viewBox="0 0 960 400" role="img" aria-labelledby="archT">
+        <title id="archT">Architecture: WhatsApp via Baileys connects to a Node backend; the backend calls Claude with automatic fallback to a backup provider, stores data through Prisma, and updates the React panel in real time.</title>
+        <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10z" fill="var(--mut)"/></marker></defs>
+        <rect class="box" x="20" y="150" width="170" height="90" rx="14"/><text x="105" y="190" text-anchor="middle">WhatsApp</text><text class="sub" x="105" y="212" text-anchor="middle">Baileys</text>
+        <rect class="box a" x="320" y="130" width="220" height="130" rx="16"/><text x="430" y="178" text-anchor="middle" font-weight="700">Node backend</text><text class="sub" x="430" y="202" text-anchor="middle">tenants · roles · bots</text><text class="sub" x="430" y="222" text-anchor="middle">audit · WebSocket</text>
+        <rect class="box a" x="680" y="30" width="250" height="80" rx="14"/><text x="805" y="66" text-anchor="middle" font-weight="700">Claude</text><text class="sub" x="805" y="88" text-anchor="middle">primary AI</text>
+        <rect class="box" x="680" y="140" width="250" height="70" rx="14"/><text x="805" y="172" text-anchor="middle">Backup provider</text><text class="sub" x="805" y="192" text-anchor="middle">automatic fallback</text>
+        <rect class="box" x="680" y="250" width="250" height="60" rx="14"/><text x="805" y="285" text-anchor="middle">Prisma · DB</text>
+        <rect class="box" x="320" y="320" width="220" height="60" rx="14"/><text x="430" y="355" text-anchor="middle">React panel</text>
+        <path id="p1" class="ln" d="M190 195 H316"/>
+        <path class="ln" d="M540 160 C610 160 610 70 676 70"/>
+        <path class="ln d" d="M540 190 C610 190 610 175 676 175"/>
+        <path class="ln" d="M540 230 C610 230 610 280 676 280"/>
+        <path class="ln" d="M430 260 V316"/>
+        <circle class="flowdot" r="5"><animateMotion dur="2.4s" repeatCount="indefinite" path="M190 195 H316"/></circle>
+        <circle class="flowdot" r="5"><animateMotion dur="2.4s" begin=".8s" repeatCount="indefinite" path="M540 160 C610 160 610 70 676 70"/></circle>
+      </svg>
+      <svg class="arch-v" viewBox="0 0 340 560" role="img" aria-labelledby="archT2">
+        <title id="archT2">Architecture: WhatsApp via Baileys, Node backend, Claude with backup fallback, Prisma database, React panel.</title>
+        <defs><marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10z" fill="var(--mut)"/></marker></defs>
+        <rect class="box" x="70" y="10" width="200" height="64" rx="14"/><text x="170" y="40" text-anchor="middle">WhatsApp</text><text class="sub" x="170" y="60" text-anchor="middle">Baileys</text>
+        <rect class="box a" x="50" y="120" width="240" height="90" rx="16"/><text x="170" y="158" text-anchor="middle" font-weight="700">Node backend</text><text class="sub" x="170" y="182" text-anchor="middle">tenants · roles · audit</text>
+        <rect class="box a" x="10" y="260" width="150" height="70" rx="14"/><text x="85" y="292" text-anchor="middle" font-weight="700">Claude</text><text class="sub" x="85" y="314" text-anchor="middle">primary</text>
+        <rect class="box" x="180" y="260" width="150" height="70" rx="14"/><text x="255" y="292" text-anchor="middle">Backup</text><text class="sub" x="255" y="314" text-anchor="middle">fallback</text>
+        <rect class="box" x="10" y="390" width="150" height="60" rx="14"/><text x="85" y="425" text-anchor="middle">Prisma · DB</text>
+        <rect class="box" x="180" y="390" width="150" height="60" rx="14"/><text x="255" y="425" text-anchor="middle">React panel</text>
+        <path class="ln" style="marker-end:url(#ar2)" d="M170 74 V116"/>
+        <path class="ln" style="marker-end:url(#ar2)" d="M120 210 V256"/>
+        <path class="ln d" style="marker-end:url(#ar2)" d="M160 295 H176"/>
+        <path class="ln" style="marker-end:url(#ar2)" d="M150 210 C150 360 85 350 85 386"/>
+        <path class="ln" style="marker-end:url(#ar2)" d="M220 210 C300 240 340 350 255 386"/>
+      </svg>
+      <figcaption class="legend"><span data-i18n="lg1">request / data flow</span><span class="d" data-i18n="lg2">fallback path</span></figcaption>
+    </figure>
+    <div class="ph" data-i18n="ph3">[ Screenshot placeholder · React panel: CRM, audit log, live lines ]</div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section id="roadmap">
+  <div class="w rv">
+    <p class="kicker" data-i18n="rm_k">06 · Roadmap</p>
+    <h2 data-i18n="rm_t">Where it goes next.</h2>
+    <ol class="road">
+      <li><span class="st" data-i18n="r1s">Now</span><h3 data-i18n="r1t">Prove it with Sedes</h3><ul><li data-i18n="r1a">Keep the live club deployment solid</li><li data-i18n="r1b">Sell Sedes to more clubs through Sonriar</li></ul></li>
+      <li><span class="st" data-i18n="r2s">Next</span><h3 data-i18n="r2t">More verticals</h3><ul><li data-i18n="r2a">Bring Multiservicios Santa Cruz and the hotel bot to real users</li><li data-i18n="r2b">Publish screenshots and a product video</li></ul></li>
+      <li><span class="st" data-i18n="r3s">Later</span><h3 data-i18n="r3t">Open the platform</h3><ul><li data-i18n="r3a">Let more small businesses onboard onto the multi-tenant core</li><li data-i18n="r3b">Deepen what Claude does inside each bot</li></ul></li>
+    </ol>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact">
+  <div class="w rv">
+    <p class="kicker" style="justify-content:center" data-i18n="ct_k">07 · Contact</p>
+    <h2 data-i18n="ct_t">Let's talk.</h2>
+    <p class="lead" data-i18n="ct_ld">Happy to walk through the code, the architecture or a live demo.</p>
+    <div class="ctas"><a class="btn p" href="mailto:juan@eonplatform.eu.org">juan@eonplatform.eu.org</a></div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="w"><span>© 2026 Eon Platform · Patagonia, Argentina</span><span data-i18n="ft">Built by JuanKLimoN with Claude Code.</span></div>
+</footer>
+
+<script>
+(function(){
+  document.body.classList.remove('no-js');
+  var root=document.documentElement;
+  var ES={
+    skip:"Saltar al contenido",n1:"Problema",n2:"Productos",n3:"Claude",n4:"Laboratorio",n5:"Arquitectura",n6:"Contacto",
+    h_k:"Claude for Startups · postulación",
+    h_t:"Atención con IA por <em>WhatsApp</em> para los negocios chicos de Latinoamérica.",
+    h_l:"Eon Platform convierte el WhatsApp de un negocio en un asistente que responde, inscribe, cobra y lleva los registros — en castellano, como habla la gente de acá. Hecho desde la Patagonia argentina por un fundador solo, sin inversión, con Claude Code.",
+    p1:"<b>Fundador solo</b> · JuanKLimoN",p2:"<b>Sin inversión</b> · a pulmón",p3:"<b>Patagonia</b>, Argentina",p4:"<b>Hecho con</b> Claude Code",
+    c1:"Ver los productos",c2:"Escribime",
+    ph_s:"asistente del club · ilustrativo",ph_c:"Flujo ilustrativo, no es una conversación real de un cliente.",
+    m1:"Hola! Quiero hacerme socio 🙌",m2:"¡Genial! Te paso el link de Mercado Pago o el alias para transferir.",m3:"Leí el comprobante ✅ Pago confirmado.",m4:"Acá está tu carnet digital 🪪",
+    pr_k:"01 · Problema y solución",pr_t:"En Latinoamérica, los negocios pasan por WhatsApp.",
+    pr_l:"Clubes, hoteles y gente de oficio consiguen sus clientes por chat — pero el que contesta suele ser el dueño, entre mil cosas más.",
+    pb_t:"El problema",pb1:"Los mensajes se acumulan a la noche y los fines de semana; las respuestas llegan tarde o nunca.",
+    pb2:"Los pagos llegan como capturas de transferencias que alguien tiene que revisar a mano.",
+    pb3:"Los padrones y registros viven en cuadernos o planillas sueltas.",
+    pb4:"Las herramientas empresariales están pensadas, cobradas y escritas para otros mercados.",
+    sl_t:"La solución",sl1:"Un asistente con IA en el propio número de WhatsApp del negocio, que responde a cualquier hora.",
+    sl2:"Cobros por Mercado Pago o transferencia, y la IA lee el comprobante.",
+    sl3:"Registros, roles y un CRM en un panel web que se actualiza en tiempo real.",
+    sl4:"Productos verticales para cada tipo de negocio, sobre una misma plataforma.",
+    pd_k:"02 · Productos",pd_t:"Una plataforma, varios negocios arriba.",
+    pd_l:"Cada producto es un bot de WhatsApp con su propia personalidad y flujos, corriendo sobre el mismo núcleo multi-tenant.",
+    t_live:"En uso en un club deportivo real",sd_l:"Un bot de WhatsApp para clubes que resuelve la membresía de punta a punta.",
+    sd1:"Inscribe socios nuevos desde el chat",sd2:"Cobra cuotas por Mercado Pago o transferencia",sd3:"La IA lee el comprobante de transferencia para validar el pago",sd4:"Emite un carnet digital de socio",
+    ph1:"[ Lugar para captura · conversación de Sedes ]",
+    t_biz:"El negocio detrás de Sedes",so_l:"Vende y opera Sedes. Su bot comercial tiene como cara a Guardián, la mascota de la marca.",
+    so1:"Bot comercial en WhatsApp con la mascota Guardián",so2:"Panel de clientes con manejo de licencias",so3:"Estado en vivo de cada instalación",so4:"Suspensión del servicio por falta de pago",
+    ph2:"[ Lugar para captura · panel de licencias de Sonriar ]",
+    ms_l:"Una guía de oficios de toda la provincia de Santa Cruz por WhatsApp: pedís un plomero o un electricista y te lo conecta.",
+    ho_t:"Bot de hotel",ho_l:"Un asistente para huéspedes por WhatsApp que responde preguntas y consultas de un hotel.",
+    mt_t:"Plataforma multi-tenant",mt_l:"El núcleo: espacios aislados por negocio, roles de admin/operador, CRM, auditoría completa y un panel en tiempo real.",
+    vid:"[ Lugar para video futuro · recorrida del producto ]",
+    cl_k:"03 · Cómo usa Claude Eon",cl_t:"Claude en el producto, y Claude construyéndolo.",
+    cl_l:"Dos roles: Claude es el proveedor principal de IA detrás de cada bot, y Claude Code es lo que le permite a una sola persona sacar una plataforma de este tamaño.",
+    cp_t:"En producción",cp1b:"Proveedor principal",cp1:"Claude maneja las conversaciones, el prompt de cada negocio y la lectura de comprobantes.",
+    cp2b:"Respaldo automático",cp2:"Si una llamada falla, la plataforma pasa a un proveedor de respaldo y el cliente igual recibe respuesta.",
+    cp3b:"Un prompt por negocio",cp3:"Cada tenant configura cómo habla su asistente.",
+    cd_t:"En desarrollo",cd1b:"Todo con Claude Code",cd1:"Backend, panel, bots y proyectos paralelos se escriben con Claude Code.",
+    cd2b:"Revisiones de seguridad y tests",cd2:"Los cambios pasan por revisiones de seguridad y tests antes de mergearse.",
+    cd3b:"Sesiones en la nube → pull requests",cd3:"El trabajo corre en sesiones de Claude Code en la nube y entra como PRs revisados — incluida esta página.",
+    lb_k:"04 · El laboratorio del fundador",lb_t:"Otras cosas construidas en el camino.",
+    lb_l:"Proyectos paralelos donde JuanKLimoN se mete con problemas difíciles — audio, bugs de memoria, voz sin conexión, accesibilidad. También hechos con Claude Code.",
+    ps_l:"Un fork en español de DS4Windows que manda audio al joystick de PS4 por Bluetooth, hecho en C# con un códec SBC propio. Además arregla un bug de corrupción de memoria, con el arreglo medido:",
+    b1:"Sin arreglo",b2:"Con arreglo",b_n:"Caídas por corrida de prueba.",
+    et_l:"Un looper musical que se toca con el joystick.",la_tag:"voz sin internet",
+    la_l:"Un asistente de voz local en español que anda sin internet, con Claude como ayuda opcional.",
+    ct_l:"Manejá la PC desde una tablet.",br_tag:"accesibilidad",br_l:"Una app para aprender a usar el mouse.",
+    ar_k:"05 · Arquitectura",ar_t:"Cómo viaja un mensaje por Eon.",
+    ar_l:"Un backend en Node mantiene vivas las sesiones de WhatsApp con Baileys, guarda todo con Prisma y empuja actualizaciones en vivo al panel en React.",
+    lg1:"flujo de pedidos / datos",lg2:"camino de respaldo",ph3:"[ Lugar para captura · panel React: CRM, auditoría, líneas en vivo ]",
+    rm_k:"06 · Hoja de ruta",rm_t:"Para dónde va.",
+    r1s:"Ahora",r1t:"Probarlo con Sedes",r1a:"Mantener sólida la instalación en el club",r1b:"Venderle Sedes a más clubes a través de Sonriar",
+    r2s:"Después",r2t:"Más verticales",r2a:"Llevar Multiservicios Santa Cruz y el bot de hotel a usuarios reales",r2b:"Publicar capturas y un video del producto",
+    r3s:"Más adelante",r3t:"Abrir la plataforma",r3a:"Que más negocios chicos se sumen al núcleo multi-tenant",r3b:"Profundizar lo que hace Claude dentro de cada bot",
+    ct_k:"07 · Contacto",ct_t:"Hablemos.",ct_ld:"Con gusto te muestro el código, la arquitectura o una demo en vivo.",
+    ft:"Hecho por JuanKLimoN con Claude Code."
+  };
+  var EN={};
+  var nodes=document.querySelectorAll('[data-i18n],[data-i18n-html]');
+  nodes.forEach(function(n){var k=n.dataset.i18n||n.dataset.i18nHtml;EN[k]=n.dataset.i18nHtml?n.innerHTML:n.textContent;});
+  var langBtn=document.getElementById('lang');
+  function setLang(l){
+    var d=l==='es'?ES:EN;
+    nodes.forEach(function(n){var k=n.dataset.i18n||n.dataset.i18nHtml;if(d[k]==null)return;if(n.dataset.i18nHtml)n.innerHTML=d[k];else n.textContent=d[k];});
+    root.lang=l;root.dataset.lang=l;
+    langBtn.textContent=l==='es'?'EN':'ES';
+    langBtn.setAttribute('aria-label',l==='es'?'Switch to English':'Cambiar a español');
+    try{localStorage.setItem('eon-lang',l)}catch(e){}
+  }
+  langBtn.addEventListener('click',function(){setLang(root.lang==='es'?'en':'es')});
+  var saved=null;try{saved=localStorage.getItem('eon-lang')}catch(e){}
+  if(saved==='es')setLang('es');
+
+  var themeBtn=document.getElementById('theme');
+  function isDark(){var t=root.dataset.theme;return t?t==='dark':matchMedia('(prefers-color-scheme: dark)').matches}
+  function syncTheme(){themeBtn.setAttribute('aria-pressed',isDark()?'true':'false')}
+  try{var st=localStorage.getItem('eon-theme');if(st)root.dataset.theme=st}catch(e){}
+  syncTheme();
+  themeBtn.addEventListener('click',function(){var t=isDark()?'light':'dark';root.dataset.theme=t;try{localStorage.setItem('eon-theme',t)}catch(e){}syncTheme();});
+
+  var els=document.querySelectorAll('.rv');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in-view');io.unobserve(e.target);}})},{threshold:.12});
+    els.forEach(function(e){io.observe(e)});
+  }else els.forEach(function(e){e.classList.add('in-view')});
+})();
+</script>
 </body>
 </html>
