@@ -190,6 +190,10 @@ html[data-lang="en"] [data-only="es"],html[data-lang="es"] [data-only="en"]{disp
 .subhead{margin:48px 0 0;font-size:1.3rem}
 .card.accent{border-color:var(--acc);background:var(--accbg)}.card.accent p{color:var(--fg)}
 .thesis{font-family:var(--mono);font-size:.9rem;color:var(--acc2);margin-top:18px}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:28px}
+.facts div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:4px}
+.facts b{font-size:1.35rem;color:var(--acc)}.facts span{color:var(--mut);font-size:.88rem}
+.stack{margin-top:16px}
 /* reveal */
 .rv{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
 .rv.in-view{opacity:1;transform:none}
@@ -219,6 +223,7 @@ html[data-lang="en"] [data-only="es"],html[data-lang="es"] [data-only="en"]{disp
       <a href="#products" data-i18n="n2">Products</a>
       <a href="#claude" data-i18n="n3">Claude</a>
       <a href="#lab" data-i18n="n4">Engineering</a>
+      <a href="#ecosystem" data-i18n="n7">Ecosystem</a>
       <a href="#architecture" data-i18n="n5">Architecture</a>
       <a href="#contact" data-i18n="n6">Contact</a>
     </nav>
@@ -519,10 +524,70 @@ html[data-lang="en"] [data-only="es"],html[data-lang="es"] [data-only="en"]{disp
   </div>
 </section>
 
+<!-- ECOSYSTEM -->
+<section id="ecosystem">
+  <div class="w rv">
+    <p class="kicker"><span data-only="en">05 · Origin &amp; ecosystem</span><span data-only="es">05 · Origen y ecosistema</span></p>
+    <h2><span data-only="en">It started on a tablet with Termux.</span><span data-only="es">Empezó en una tablet con Termux.</span></h2>
+    <p class="lead" data-only="en">The first bot ran on an Android tablet inside Termux, with whisper.cpp compiled there for voice notes. Less than three months later it is a set of programs across Windows, Android and Linux that find each other on the network, share devices and reuse each other's ideas — built by one person, without a team or funding.</p>
+    <p class="lead" data-only="es">El primer bot corría en una tablet Android dentro de Termux, con whisper.cpp compilado ahí para los audios. Menos de tres meses después es un conjunto de programas entre Windows, Android y Linux que se encuentran solos en la red, comparten dispositivos y reutilizan las ideas de los otros — hecho por una persona, sin equipo ni inversión.</p>
+
+    <div class="facts">
+      <div><b>Jul 19 → Oct 9, 2026</b><span data-only="en">first to latest commit, eon-bot</span><span data-only="es">del primer al último commit, eon-bot</span></div>
+      <div><b>233</b><span data-only="en">commits in eon-bot alone</span><span data-only="es">commits solo en eon-bot</span></div>
+      <div><b>10+</b><span data-only="en">programs, one author</span><span data-only="es">programas, un autor</span></div>
+      <div><b>3</b><span data-only="en">operating systems</span><span data-only="es">sistemas operativos</span></div>
+    </div>
+    <p class="note" data-only="en">Counted from git. The desktop projects lived outside git until recently, so their history isn't in these numbers.</p>
+    <p class="note" data-only="es">Contado desde git. Los proyectos de escritorio vivieron fuera de git hasta hace poco, así que su historia no está en estos números.</p>
+
+    <figure class="arch" style="margin-left:0;margin-right:0">
+      <svg viewBox="0 0 960 420" role="img" aria-labelledby="ecoT">
+        <title id="ecoT">Ecosystem: Windows PCs run EonCT, eonSC, EonPS4Controller, EonTone and LAYA. PCs announce themselves on the local network over UDP; the Android app discovers them and controls them. EonPS4Controller feeds EonTone over a local UDP channel. eonSC shares the PC's connection with the tablet.</title>
+        <defs><marker id="ar3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10z" fill="var(--mut)"/></marker></defs>
+        <rect class="box" x="20" y="20" width="560" height="380" rx="18"/>
+        <text x="40" y="52" font-weight="700">Windows PC</text><text class="sub" x="160" y="52">C# · .NET 8 · WPF · Win32 · COM · Node · Python · PowerShell</text>
+        <rect class="box a" x="40" y="80" width="240" height="70" rx="12"/><text x="160" y="112" text-anchor="middle" font-weight="700">EonPS4Controller</text><text class="sub" x="160" y="134" text-anchor="middle">BT audio · lights · rumble</text>
+        <rect class="box" x="320" y="80" width="240" height="70" rx="12"/><text x="440" y="112" text-anchor="middle">EonTone</text><text class="sub" x="440" y="134" text-anchor="middle">looper · own DSP</text>
+        <rect class="box a" x="40" y="190" width="240" height="70" rx="12"/><text x="160" y="222" text-anchor="middle" font-weight="700">EonCT</text><text class="sub" x="160" y="244" text-anchor="middle">HTTPS · UDP announce</text>
+        <rect class="box" x="320" y="190" width="240" height="70" rx="12"/><text x="440" y="222" text-anchor="middle">eonSC</text><text class="sub" x="440" y="244" text-anchor="middle">own hotspot · watchdog</text>
+        <rect class="box" x="40" y="300" width="240" height="70" rx="12"/><text x="160" y="332" text-anchor="middle">LAYA</text><text class="sub" x="160" y="354" text-anchor="middle">offline voice · Claude opt-in</text>
+        <rect class="box a" x="320" y="300" width="240" height="70" rx="12"/><text x="440" y="332" text-anchor="middle" font-weight="700">WhatsApp bots</text><text class="sub" x="440" y="354" text-anchor="middle">Node · Baileys · Claude</text>
+        <path class="ln" style="marker-end:url(#ar3)" d="M280 115 H316"/><text class="sub" x="298" y="106" text-anchor="middle">DSU</text>
+        <rect class="box a" x="680" y="60" width="260" height="110" rx="18"/><text x="810" y="98" text-anchor="middle" font-weight="700">Android</text><text class="sub" x="810" y="122" text-anchor="middle">EonCT app · Java, no Gradle</text><text class="sub" x="810" y="142" text-anchor="middle">air-mouse · mic · files</text>
+        <rect class="box" x="680" y="240" width="260" height="110" rx="18"/><text x="810" y="278" text-anchor="middle" font-weight="700">Linux · Termux</text><text class="sub" x="810" y="302" text-anchor="middle">where the first bot ran</text><text class="sub" x="810" y="322" text-anchor="middle">whisper.cpp on-device</text>
+        <path class="ln" style="marker-end:url(#ar3)" d="M280 215 C460 170 560 130 676 115"/><text class="sub" x="600" y="150">UDP · every 3 s</text>
+        <path class="ln d" style="marker-end:url(#ar3)" d="M676 135 C560 200 420 230 284 235"/>
+        <path class="ln" style="marker-end:url(#ar3)" d="M560 225 C620 225 640 180 676 160"/>
+      </svg>
+      <figcaption class="legend"><span data-only="en">discovery / data</span><span data-only="es">descubrimiento / datos</span><span class="d"><span data-only="en">control from the phone</span><span data-only="es">control desde el celular</span></span></figcaption>
+    </figure>
+
+    <div class="cols3">
+      <div><h4><span data-only="en">Things find each other</span><span data-only="es">Las cosas se encuentran solas</span></h4>
+        <p data-only="en">Each PC with EonCT broadcasts a small JSON over UDP every 3 seconds. A web page can't listen to UDP, so a native Android app was written just for that: open it on the same Wi-Fi and the PCs appear — no QR, no IP typing; one that goes silent for 15 s disappears.</p>
+        <p data-only="es">Cada PC con EonCT anuncia un JSON chico por UDP cada 3 segundos. Una página web no puede escuchar UDP, así que se hizo una app nativa de Android solo para eso: la abrís en el mismo Wi-Fi y aparecen las PCs — sin QR, sin escribir IPs; la que se calla 15 s desaparece.</p></div>
+      <div><h4><span data-only="en">No build tool when none is needed</span><span data-only="es">Sin herramientas de más</span></h4>
+        <p data-only="en">The Android app is built without Gradle on purpose: aapt2 → javac → d8 → zipalign → apksigner, in a short script. No outside libraries, hundreds of MB less to download, seconds instead of minutes. Same spirit everywhere: COM interop instead of NuGet packages, fetch instead of an SDK.</p>
+        <p data-only="es">La app de Android se compila sin Gradle a propósito: aapt2 → javac → d8 → zipalign → apksigner, en un script corto. Sin librerías de afuera, cientos de MB menos para bajar, segundos en vez de minutos. El mismo criterio en todo: interop COM en vez de paquetes NuGet, fetch en vez de un SDK.</p></div>
+      <div><h4><span data-only="en">Solutions travel</span><span data-only="es">Las soluciones viajan</span></h4>
+        <p data-only="en">The "hold still to drag" gesture went from EonCT's touchpad to the PS4 controller's. EonPS4Controller's local UDP feed became EonTone's input. The Claude-first fallback became one module shared by four bots. A fix for one problem becomes a part for the next project.</p>
+        <p data-only="es">El gesto de "quedarse quieto para arrastrar" pasó del touchpad de EonCT al del joystick de PS4. El canal UDP local de EonPS4Controller pasó a ser la entrada de EonTone. El "Claude primero" quedó como un módulo que comparten cuatro bots. Lo que arregla un problema se vuelve una pieza del próximo proyecto.</p></div>
+    </div>
+
+    <h3 class="subhead"><span data-only="en">Languages and tools in use</span><span data-only="es">Lenguajes y herramientas en uso</span></h3>
+    <ul class="pills stack">
+      <li>C# · .NET 8 · WPF/XAML</li><li>Win32 · COM interop</li><li>JavaScript · Node.js</li><li>TypeScript</li><li>React 18 · Tailwind · Vite</li><li>Prisma · SQLite · PostgreSQL</li><li>Socket.io · Express</li><li>Python</li><li>Java · Android SDK</li><li>PowerShell · Bash · Batch</li><li>HTML · CSS</li><li>Baileys (WhatsApp)</li><li>Claude API · Claude Code</li><li>NVIDIA-hosted models</li><li>whisper.cpp · Whisper</li><li>Tesseract OCR</li><li>Canary STT</li><li>WASAPI · Media Foundation</li><li>HidHide · ViGEmBus</li><li>Vitest</li><li>Termux</li>
+    </ul>
+    <div class="ph" data-only="en">[ Placeholder · hours, consecutive days and Claude usage — to be filled with real figures ]</div>
+    <div class="ph" data-only="es">[ Lugar para · horas, días seguidos y uso de Claude — a completar con números reales ]</div>
+  </div>
+</section>
+
 <!-- ARCHITECTURE -->
 <section id="architecture">
   <div class="w rv">
-    <p class="kicker" data-i18n="ar_k">05 · Architecture</p>
+    <p class="kicker" data-i18n="ar_k">06 · Architecture</p>
     <h2 data-i18n="ar_t">How a message flows through Eon.</h2>
     <p class="lead" data-i18n="ar_l">A Node/TypeScript backend keeps several WhatsApp sessions alive through Baileys, persists with Prisma (SQLite in dev, PostgreSQL in prod), encrypts stored WhatsApp credentials with AES-256-GCM and pushes live updates to the React panel over Socket.io.</p>
     <figure class="arch" style="margin-left:0;margin-right:0">
@@ -567,7 +632,7 @@ html[data-lang="en"] [data-only="es"],html[data-lang="es"] [data-only="en"]{disp
 <!-- ROADMAP -->
 <section id="roadmap">
   <div class="w rv">
-    <p class="kicker" data-i18n="rm_k">06 · Roadmap</p>
+    <p class="kicker" data-i18n="rm_k">07 · Roadmap</p>
     <h2 data-i18n="rm_t">Where it goes next.</h2>
     <ol class="road">
       <li><span class="st" data-i18n="r1s">Now</span><h3 data-i18n="r1t">Prove it with Sedes</h3><ul><li data-i18n="r1a">Keep the live club deployment solid</li><li data-i18n="r1b">Sell Sedes to more clubs through Sonriar</li></ul></li>
@@ -580,7 +645,7 @@ html[data-lang="en"] [data-only="es"],html[data-lang="es"] [data-only="en"]{disp
 <!-- CONTACT -->
 <section id="contact" class="contact">
   <div class="w rv">
-    <p class="kicker" style="justify-content:center" data-i18n="ct_k">07 · Contact</p>
+    <p class="kicker" style="justify-content:center" data-i18n="ct_k">08 · Contact</p>
     <h2 data-i18n="ct_t">Let's talk.</h2>
     <p class="lead" data-i18n="ct_ld">Happy to walk through the code, the architecture or a live demo.</p>
     <div class="ctas"><a class="btn p" href="mailto:juan@eonplatform.eu.org">juan@eonplatform.eu.org</a></div>
@@ -597,7 +662,7 @@ html[data-lang="en"] [data-only="es"],html[data-lang="es"] [data-only="en"]{disp
   document.body.classList.remove('no-js');
   var root=document.documentElement;
   var ES={
-    skip:"Saltar al contenido",n1:"Problema",n2:"Productos",n3:"Claude",n4:"Ingeniería",n5:"Arquitectura",n6:"Contacto",
+    skip:"Saltar al contenido",n1:"Problema",n2:"Productos",n3:"Claude",n4:"Ingeniería",n5:"Arquitectura",n6:"Contacto",n7:"Ecosistema",
     h_k:"Claude for Startups · postulación",h_th:"→ Por dentro: un códec de audio Bluetooth escrito a mano, un arreglo de corrupción de memoria en .NET medido con p ≈ 0,01 y una capa de IA que nunca se queda callada.",
     h_t:"Atención con IA por <em>WhatsApp</em> para los negocios chicos de Latinoamérica.",
     h_l:"Eon Platform convierte el WhatsApp de un negocio en un asistente que responde, inscribe, cobra y lleva los registros — en castellano, como habla la gente de acá. Hecho desde la Patagonia argentina por un fundador solo, sin inversión, con Claude Code.",
@@ -636,14 +701,14 @@ html[data-lang="en"] [data-only="es"],html[data-lang="es"] [data-only="en"]{disp
     cd2b:"Revisiones de seguridad y tests",cd2:"Los cambios pasan por revisiones de seguridad y tests antes de mergearse.",
     cd3b:"Sesiones en la nube → pull requests",cd3:"El trabajo corre en sesiones de Claude Code en la nube y entra como PRs revisados — incluida esta página.",
     lb_k:"04 · Cuaderno de ingeniería",lb_t:"No es \"otro bot de WhatsApp\". Esto es lo que hay abajo.",
-    b1:"Sin arreglo",b2:"Con arreglo",ar_k:"05 · Arquitectura",ar_t:"Cómo viaja un mensaje por Eon.",
+    b1:"Sin arreglo",b2:"Con arreglo",ar_k:"06 · Arquitectura",ar_t:"Cómo viaja un mensaje por Eon.",
     ar_l:"Un backend en Node/TypeScript mantiene vivas varias sesiones de WhatsApp con Baileys, guarda con Prisma (SQLite en desarrollo, PostgreSQL en producción), cifra las credenciales de WhatsApp con AES-256-GCM y empuja actualizaciones en vivo al panel React por Socket.io.",
     lg1:"flujo de pedidos / datos",lg2:"camino de respaldo",ph3:"[ Lugar para captura · panel React: CRM, auditoría, líneas en vivo ]",
-    rm_k:"06 · Hoja de ruta",rm_t:"Para dónde va.",
+    rm_k:"07 · Hoja de ruta",rm_t:"Para dónde va.",
     r1s:"Ahora",r1t:"Probarlo con Sedes",r1a:"Mantener sólida la instalación en el club",r1b:"Venderle Sedes a más clubes a través de Sonriar",
     r2s:"Después",r2t:"Más verticales",r2a:"Llevar Multiservicios Santa Cruz y el bot de hotel a usuarios reales",r2b:"Publicar capturas y un video del producto",
     r3s:"Más adelante",r3t:"Abrir la plataforma",r3a:"Que más negocios chicos se sumen al núcleo multi-tenant",r3b:"Profundizar lo que hace Claude dentro de cada bot",
-    ct_k:"07 · Contacto",ct_t:"Hablemos.",ct_ld:"Con gusto te muestro el código, la arquitectura o una demo en vivo.",
+    ct_k:"08 · Contacto",ct_t:"Hablemos.",ct_ld:"Con gusto te muestro el código, la arquitectura o una demo en vivo.",
     ft:"Co-creado por JuanKLimoN y Claude."
   };
   var EN={};
