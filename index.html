@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Eon Platform</title>
-<meta name="description" content="Eon Platform: AI customer service on WhatsApp for small businesses in Latin America. Built in Argentine Patagonia by a solo founder with Claude Code.">
+<meta name="description" content="Eon Platform: AI customer service on WhatsApp for small businesses in Latin America. Built in Puerto Santa Cruz, Argentine Patagonia, by a solo founder with Claude Code.">
 <meta name="color-scheme" content="light dark">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -196,6 +196,7 @@ html[data-lang="en"] [data-only="es"],html[data-lang="es"] [data-only="en"]{disp
 .stack{margin-top:16px}
 .appendix{background:var(--bg2);border-top:1px solid var(--line);padding:56px 0 24px}.appendix p{color:var(--mut);max-width:62ch}
 .loop{margin-top:4px}
+.founder{background:var(--bg2)}.founder-grid{display:grid;gap:24px}@media (min-width:900px){.founder-grid{grid-template-columns:1fr 1fr;align-items:start}}.founder p{color:var(--mut)}
 /* reveal */
 .rv{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
 .rv.in-view{opacity:1;transform:none}
@@ -210,6 +211,17 @@ html[data-lang="en"] [data-only="es"],html[data-lang="es"] [data-only="en"]{disp
   .arch .flowdot{display:none}
 }
 </style>
+<link rel="alternate" type="text/markdown" href="eon.md" title="Eon Platform technical dossier">
+<link rel="alternate" type="text/plain" href="llms.txt" title="llms.txt">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"Organization","name":"Eon Platform","email":"juan@eonplatform.eu.org","description":"AI customer service on WhatsApp for small businesses in Latin America.","location":{"@type":"Place","name":"Puerto Santa Cruz, Santa Cruz, Argentina"},"founder":{"@type":"Person","alternateName":"JuanKLimoN"}},
+{"@type":"SoftwareApplication","name":"Sedes","applicationCategory":"BusinessApplication","description":"WhatsApp bot for clubs: member sign-up, payments via Mercado Pago or transfer with AI receipt reading, digital membership card."},
+{"@type":"SoftwareApplication","name":"EonPS4Controller","applicationCategory":"UtilitiesApplication","operatingSystem":"Windows","programmingLanguage":"C#","description":"Spanish fork of DS4Windows with in-process Bluetooth audio (hand-written SBC codec) and a measured fix for a memory-corruption crash."},
+{"@type":"SoftwareApplication","name":"EonTone","operatingSystem":"Windows","programmingLanguage":"C#","description":"Multitrack looper played with the PS4 controller; hand-written DSP."},
+{"@type":"SoftwareApplication","name":"LAYA","operatingSystem":"Windows","programmingLanguage":"Python","description":"Offline Spanish voice assistant; optional Claude help that it learns from."}
+]}
+</script>
 </head>
 <body class="no-js">
 <a class="skip" href="#main" data-i18n="skip">Skip to content</a>
@@ -243,12 +255,12 @@ html[data-lang="en"] [data-only="es"],html[data-lang="es"] [data-only="en"]{disp
     <div>
       <p class="kicker" data-i18n="h_k">Claude for Startups · application</p>
       <h1 data-i18n-html="h_t">AI customer service on <em>WhatsApp</em> for Latin America's small businesses.</h1>
-      <p class="lead" data-i18n="h_l">Eon Platform turns a business's WhatsApp number into an assistant that answers, signs people up, collects payments and keeps records — in Spanish, the way people there actually talk. Built from Argentine Patagonia by one founder, with no outside funding, using Claude Code.</p>
+      <p class="lead" data-i18n="h_l">Eon Platform turns a business's WhatsApp number into an assistant that answers, signs people up, collects payments and keeps records — in Spanish, the way people there actually talk. Built from Puerto Santa Cruz, in Argentine Patagonia, by one founder, with no outside funding, using Claude Code.</p>
       <p class="thesis" data-i18n="h_th">→ Under the hood: a hand-written Bluetooth audio codec, a .NET memory-corruption fix measured at p ≈ 0.01, and an AI layer that never goes silent.</p>
       <ul class="pills">
         <li data-i18n-html="p1"><b>Solo founder</b> · JuanKLimoN</li>
         <li data-i18n-html="p2"><b>Bootstrapped</b> · no investment</li>
-        <li data-i18n-html="p3"><b>Patagonia</b>, Argentina</li>
+        <li data-i18n-html="p3"><b>Puerto Santa Cruz</b>, Patagonia</li>
         <li data-i18n-html="p4"><b>Built with</b> Claude Code</li>
       </ul>
       <div class="ctas">
@@ -267,6 +279,22 @@ html[data-lang="en"] [data-only="es"],html[data-lang="es"] [data-only="en"]{disp
       </div>
       <figcaption data-i18n="ph_c">Illustrative flow, not a real customer conversation.</figcaption>
     </figure>
+  </div>
+</section>
+
+<!-- FOUNDER -->
+<section id="founder" class="founder">
+  <div class="w rv">
+    <p class="kicker"><span data-only="en">The founder</span><span data-only="es">El fundador</span></p>
+    <div class="founder-grid">
+      <h2><span data-only="en">A Commodore 64 at five, in a town where 4G arrived only a few years ago.</span><span data-only="es">Una Commodore 64 a los cinco años, en un pueblo donde el 4G llegó hace pocos años.</span></h2>
+      <div>
+        <p data-only="en">JuanKLimoN started on a Commodore 64 at age five, out in the countryside of Puerto Santa Cruz, in Argentina's Santa Cruz province — a place with almost nothing back then, where mobile 4G only arrived a few years ago. Decades of teaching himself, with little to download and no one nearby to ask, shaped how Eon is built: no unnecessary dependencies, everything working when the connection doesn't, and measuring before fixing.</p>
+        <p data-only="es">JuanKLimoN arrancó con una Commodore 64 a los cinco años, en el campo de Puerto Santa Cruz, en la provincia de Santa Cruz — un lugar donde en esa época no había casi nada y al que el 4G llegó hace pocos años. Décadas de aprender solo, con poco para bajar y nadie cerca a quien preguntar, marcaron cómo está hecho Eon: sin dependencias de más, todo andando aunque la conexión no ande, y medir antes de arreglar.</p>
+        <p data-only="en">Eon is built for the businesses around him — the club, the hotel, the tradesperson — by someone who knows what it is like when the internet is the scarce resource.</p>
+        <p data-only="es">Eon está hecho para los negocios que tiene alrededor — el club, el hotel, el que hace changas — por alguien que sabe lo que es que internet sea lo escaso.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -392,8 +420,8 @@ html[data-lang="en"] [data-only="es"],html[data-lang="es"] [data-only="en"]{disp
       </figure>
       <div class="card accent" style="grid-column:1/-1">
         <h3><span data-only="en">Designed assuming the API can fail</span><span data-only="es">Diseñado asumiendo que la API puede fallar</span></h3>
-        <p data-only="en">Small businesses in Patagonia run on unstable connections, and any API can time out. So the bots never wait blindly: Claude gets a deadline, refusals and empty answers count as failures, a parallel race of backup models takes over, and at 15 s a safe reply goes out. The customer always gets an answer; the owner never finds a chat left on read.</p>
-        <p data-only="es">Los negocios chicos de la Patagonia funcionan con conexiones inestables, y cualquier API puede tardar. Por eso los bots nunca esperan a ciegas: Claude tiene un plazo, una negativa o una respuesta vacía cuentan como falla, una carrera de modelos de respaldo toma la posta y a los 15 s sale una respuesta segura. El cliente siempre recibe respuesta; el dueño nunca encuentra un chat en visto.</p>
+        <p data-only="en">Small businesses in Patagonia often run on unstable connections, and any API can time out. So the bots never wait blindly: Claude gets a deadline, refusals and empty answers count as failures, a parallel race of backup models takes over, and at 15 s a safe reply goes out. The customer always gets an answer; the owner never finds a chat left on read.</p>
+        <p data-only="es">Los negocios chicos de la Patagonia muchas veces funcionan con conexiones inestables, y cualquier API puede tardar. Por eso los bots nunca esperan a ciegas: Claude tiene un plazo, una negativa o una respuesta vacía cuentan como falla, una carrera de modelos de respaldo toma la posta y a los 15 s sale una respuesta segura. El cliente siempre recibe respuesta; el dueño nunca encuentra un chat en visto.</p>
       </div>
     </div>
   </div>
@@ -580,6 +608,8 @@ html[data-lang="en"] [data-only="es"],html[data-lang="es"] [data-only="en"]{disp
       <div><b>3</b><span data-only="en">operating systems</span><span data-only="es">sistemas operativos</span></div>
     </div>
     <p class="note" data-only="en">Counted from git. The desktop projects lived outside git until recently, so their history isn't in these numbers.</p>
+    <p class="note" data-only="en">Full technical dossier: <a href="eon.md">eon.md</a>.</p>
+    <p class="note" data-only="es">Dossier técnico completo: <a href="eon.md">eon.md</a>.</p>
     <p class="note" data-only="es">Contado desde git. Los proyectos de escritorio vivieron fuera de git hasta hace poco, así que su historia no está en estos números.</p>
 
     <figure class="arch" style="margin-left:0;margin-right:0">
@@ -672,7 +702,7 @@ html[data-lang="en"] [data-only="es"],html[data-lang="es"] [data-only="en"]{disp
 </main>
 
 <footer>
-  <div class="w"><span>© 2026 Eon Platform · Patagonia, Argentina</span><span data-i18n="ft">Co-created by JuanKLimoN &amp; Claude.</span></div>
+  <div class="w"><span>© 2026 Eon Platform · Puerto Santa Cruz, Argentina · <a href="eon.md">technical dossier</a> · <a href="llms.txt">llms.txt</a></span><span data-i18n="ft">Co-created by JuanKLimoN &amp; Claude.</span></div>
 </footer>
 
 <script>
@@ -683,8 +713,8 @@ html[data-lang="en"] [data-only="es"],html[data-lang="es"] [data-only="en"]{disp
     skip:"Saltar al contenido",n1:"Problema",n2:"Productos",n3:"Claude",n4:"Ingeniería",n5:"Arquitectura",n6:"Contacto",n7:"Ecosistema",
     h_k:"Claude for Startups · postulación",h_th:"→ Por dentro: un códec de audio Bluetooth escrito a mano, un arreglo de corrupción de memoria en .NET medido con p ≈ 0,01 y una capa de IA que nunca se queda callada.",
     h_t:"Atención con IA por <em>WhatsApp</em> para los negocios chicos de Latinoamérica.",
-    h_l:"Eon Platform convierte el WhatsApp de un negocio en un asistente que responde, inscribe, cobra y lleva los registros — en castellano, como habla la gente de acá. Hecho desde la Patagonia argentina por un fundador solo, sin inversión, con Claude Code.",
-    p1:"<b>Fundador solo</b> · JuanKLimoN",p2:"<b>Sin inversión</b> · a pulmón",p3:"<b>Patagonia</b>, Argentina",p4:"<b>Hecho con</b> Claude Code",
+    h_l:"Eon Platform convierte el WhatsApp de un negocio en un asistente que responde, inscribe, cobra y lleva los registros — en castellano, como habla la gente de acá. Hecho desde Puerto Santa Cruz, en la Patagonia argentina, por un fundador solo, sin inversión, con Claude Code.",
+    p1:"<b>Fundador solo</b> · JuanKLimoN",p2:"<b>Sin inversión</b> · a pulmón",p3:"<b>Puerto Santa Cruz</b>, Patagonia",p4:"<b>Hecho con</b> Claude Code",
     c1:"Ver los productos",c2:"Escribime",
     ph_s:"asistente del club · ilustrativo",ph_c:"Flujo ilustrativo, no es una conversación real de un cliente.",
     m1:"Hola! Quiero hacerme socio 🙌",m2:"¡Genial! Te paso el link de Mercado Pago o el alias para transferir.",m3:"Leí el comprobante ✅ Pago confirmado.",m4:"Acá está tu carnet digital 🪪",

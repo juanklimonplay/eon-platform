@@ -1,0 +1,21 @@
+# Eon Platform
+
+> AI customer service on WhatsApp for small businesses in Latin America, built in Puerto Santa Cruz (Argentine Patagonia) by a solo, bootstrapped founder, JuanKLimoN, co-creating with Claude Code. Claude is the bots' primary model (with vision for payment receipts); a parallel NVIDIA model race and a 15-second safe reply back it up.
+
+All figures on the site come from the projects' own engineering logs or git history. Unverified items are labelled as such.
+
+## Docs
+
+- [Technical dossier](eon.md): products, how Claude is used, measured engineering cases, ecosystem, languages, roadmap.
+- [Website](index.html): the same content for people, in English and Spanish.
+
+## Highlights
+
+- DS4Windows 3.9.9 memory-corruption fix (GC-movable buffer under overlapped I/O): crashes 7/16 → 0/12, Fisher p ≈ 0.01.
+- In-process Bluetooth audio to the PS4 controller with a hand-written SBC codec; adaptive rate limiting cut slow writes from 33 % to 4–9 %.
+- Shared Claude-first AI module with no SDK, used by four WhatsApp bots; designed so the customer always gets an answer.
+- Cross-device ecosystem across Windows, Android and Linux/Termux; PCs discovered over UDP by a Gradle-free Android app.
+
+## Contact
+
+- juan@eonplatform.eu.org
