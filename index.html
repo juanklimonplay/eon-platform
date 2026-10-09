@@ -194,6 +194,8 @@ html[data-lang="en"] [data-only="es"],html[data-lang="es"] [data-only="en"]{disp
 .facts div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:4px}
 .facts b{font-size:1.35rem;color:var(--acc)}.facts span{color:var(--mut);font-size:.88rem}
 .stack{margin-top:16px}
+.appendix{background:var(--bg2);border-top:1px solid var(--line);padding:56px 0 24px}.appendix p{color:var(--mut);max-width:62ch}
+.loop{margin-top:4px}
 /* reveal */
 .rv{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
 .rv.in-view{opacity:1;transform:none}
@@ -315,7 +317,7 @@ html[data-lang="en"] [data-only="es"],html[data-lang="es"] [data-only="en"]{disp
           <li data-i18n="sd3">The AI reads the transfer receipt to validate the payment</li>
           <li data-i18n="sd4">Issues a digital membership card</li>
         </ul>
-        <div class="ph" data-i18n="ph1">[ Screenshot placeholder · Sedes conversation ]</div>
+        <!-- TODO: real screenshot goes here -->
       </article>
       <article class="card big">
         <span class="tag" data-i18n="t_biz">The business behind Sedes</span>
@@ -328,7 +330,7 @@ html[data-lang="en"] [data-only="es"],html[data-lang="es"] [data-only="en"]{disp
           <li data-i18n="so3">Live status of every installation</li>
           <li data-i18n="so4">Suspension of service for non-payment</li>
         </ul>
-        <div class="ph" data-i18n="ph2">[ Screenshot placeholder · Sonriar licence panel ]</div>
+        <!-- TODO: real screenshot goes here -->
       </article>
       <article class="card sm">
         <svg class="icon" viewBox="0 0 44 44" aria-hidden="true"><path d="M27 9a7 7 0 0 0-8 9L9 28l7 7 10-10a7 7 0 0 0 9-8l-4 4-5-1-1-5z"/></svg>
@@ -346,16 +348,14 @@ html[data-lang="en"] [data-only="es"],html[data-lang="es"] [data-only="en"]{disp
         <p data-i18n="mt_l">The core: isolated workspaces per business, admin/operator roles, CRM, a full audit log and a real-time panel.</p>
       </article>
     </div>
-    <div class="ph video" role="img" aria-label="Video placeholder">
-      <div><svg viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="26" fill="none" stroke="currentColor" stroke-width="2"/><path d="M23 18v20l16-10z" fill="currentColor"/></svg><span data-i18n="vid">[ Future video placeholder · product walkthrough ]</span></div>
-    </div>
+    <!-- TODO: product video goes here -->
   </div>
 </section>
 
 <!-- CLAUDE -->
 <section id="claude">
   <div class="w rv">
-    <p class="kicker" data-i18n="cl_k">03 · How Eon uses Claude</p>
+    <p class="kicker" data-i18n="cl_k">03 · The Claude loop</p>
     <h2 data-i18n="cl_t">Claude in the product, and Claude building it.</h2>
     <p class="lead" data-i18n="cl_l">Two roles: Claude is the primary AI provider behind every bot, and Claude Code is how a single person ships a platform of this size.</p>
     <div class="cl">
@@ -375,22 +375,63 @@ html[data-lang="en"] [data-only="es"],html[data-lang="es"] [data-only="en"]{disp
           <li><b data-i18n="cd3b">Cloud sessions → pull requests</b><span data-i18n="cd3">Work runs in Claude Code cloud sessions and lands as reviewed PRs — including this page.</span></li>
         </ol>
       </div>
-      <div class="term" style="grid-column:1/-1" aria-label="Simplified pseudo-code of the AI provider fallback">
-        <div class="bar" aria-hidden="true"><i></i><i></i><i></i></div>
-<pre><span class="o">// simplified sketch of the idea, not the actual source</span>
-<span class="k">async function</span> <span class="f">reply</span>(tenant, chat) {
-  <span class="k">try</span>   { <span class="k">return await</span> <span class="f">claude</span>(tenant.prompt, chat) }   <span class="o">// primary</span>
-  <span class="k">catch</span> { <span class="k">return await</span> <span class="f">raceNvidia</span>(tenant.prompt, chat) } <span class="o">// first good answer, 15 s cap</span>
-}</pre>
+      <figure class="arch loop" style="grid-column:1/-1;margin:0">
+        <svg viewBox="0 0 900 300" role="img" aria-labelledby="loopT">
+          <title id="loopT">The Claude loop: Claude Code in cloud sessions writes, tests and security-reviews the code, from low-level C# buffer handling to the Node bots; the work lands as pull requests; the shipped bots call the Claude API in production; what happens in production feeds the next Claude Code session.</title>
+          <defs><marker id="ar4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10z" fill="var(--mut)"/></marker></defs>
+          <rect class="box a" x="20" y="40" width="250" height="100" rx="16"/><text x="145" y="80" text-anchor="middle" font-weight="700">Claude Code</text><text class="sub" x="145" y="104" text-anchor="middle">cloud sessions</text><text class="sub" x="145" y="122" text-anchor="middle">write · test · security review</text>
+          <rect class="box" x="325" y="40" width="250" height="100" rx="16"/><text x="450" y="80" text-anchor="middle" font-weight="700">Pull requests</text><text class="sub" x="450" y="104" text-anchor="middle">C# buffers → Node bots</text><text class="sub" x="450" y="122" text-anchor="middle">reviewed, then merged</text>
+          <rect class="box a" x="630" y="40" width="250" height="100" rx="16"/><text x="755" y="80" text-anchor="middle" font-weight="700">Claude API</text><text class="sub" x="755" y="104" text-anchor="middle">in the shipped bots</text><text class="sub" x="755" y="122" text-anchor="middle">chat · vision · receipts</text>
+          <rect class="box" x="325" y="200" width="250" height="80" rx="16"/><text x="450" y="236" text-anchor="middle">Production on WhatsApp</text><text class="sub" x="450" y="258" text-anchor="middle">real customers, real failures</text>
+          <path class="ln" style="marker-end:url(#ar4)" d="M270 90 H321"/>
+          <path class="ln" style="marker-end:url(#ar4)" d="M575 90 H626"/>
+          <path class="ln" style="marker-end:url(#ar4)" d="M755 140 C755 220 650 240 579 240"/>
+          <path class="ln" style="marker-end:url(#ar4)" d="M325 240 C220 240 145 220 145 144"/>
+        </svg>
+        <figcaption class="legend"><span data-only="en">the same model family builds the product and runs inside it</span><span data-only="es">la misma familia de modelos construye el producto y corre adentro</span></figcaption>
+      </figure>
+      <div class="card accent" style="grid-column:1/-1">
+        <h3><span data-only="en">Designed assuming the API can fail</span><span data-only="es">Diseñado asumiendo que la API puede fallar</span></h3>
+        <p data-only="en">Small businesses in Patagonia run on unstable connections, and any API can time out. So the bots never wait blindly: Claude gets a deadline, refusals and empty answers count as failures, a parallel race of backup models takes over, and at 15 s a safe reply goes out. The customer always gets an answer; the owner never finds a chat left on read.</p>
+        <p data-only="es">Los negocios chicos de la Patagonia funcionan con conexiones inestables, y cualquier API puede tardar. Por eso los bots nunca esperan a ciegas: Claude tiene un plazo, una negativa o una respuesta vacía cuentan como falla, una carrera de modelos de respaldo toma la posta y a los 15 s sale una respuesta segura. El cliente siempre recibe respuesta; el dueño nunca encuentra un chat en visto.</p>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ROADMAP -->
+<section id="roadmap">
+  <div class="w rv">
+    <p class="kicker" data-i18n="rm_k">04 · Roadmap</p>
+    <h2 data-i18n="rm_t">Where it goes next.</h2>
+    <ol class="road">
+      <li><span class="st" data-i18n="r1s">Now</span><h3 data-i18n="r1t">Prove it with Sedes</h3><ul><li data-i18n="r1a">Keep the live club deployment solid</li><li data-i18n="r1b">Sell Sedes to more clubs through Sonriar</li></ul></li>
+      <li><span class="st" data-i18n="r2s">Next</span><h3 data-i18n="r2t">More verticals</h3><ul><li data-i18n="r2a">Bring Multiservicios Santa Cruz and the hotel bot to real users</li><li data-i18n="r2b">Publish screenshots and a product video</li></ul></li>
+      <li><span class="st" data-i18n="r3s">Later</span><h3 data-i18n="r3t">Open the platform</h3><ul><li data-i18n="r3a">Let more small businesses onboard onto the multi-tenant core</li><li data-i18n="r3b">Deepen what Claude does inside each bot</li></ul></li>
+    </ol>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact">
+  <div class="w rv">
+    <p class="kicker" style="justify-content:center" data-i18n="ct_k">05 · Contact</p>
+    <h2 data-i18n="ct_t">Let's talk.</h2>
+    <p class="lead" data-i18n="ct_ld">Happy to walk through the code, the architecture or a live demo.</p>
+    <div class="ctas"><a class="btn p" href="mailto:juan@eonplatform.eu.org">juan@eonplatform.eu.org</a></div>
+  </div>
+</section>
+<!-- APPENDIX -->
+<div class="appendix" id="appendix"><div class="w">
+  <p class="kicker"><span data-only="en">Technical appendix</span><span data-only="es">Anexo técnico</span></p>
+  <p data-only="en">For engineers: what is underneath, with measurements. The product story above stands on its own; this is the evidence.</p>
+  <p data-only="es">Para ingenieros: lo que hay abajo, con mediciones. La historia del producto de arriba se sostiene sola; esto es la evidencia.</p>
+</div></div>
+
 <!-- LAB -->
 <section id="lab">
   <div class="w rv">
-    <p class="kicker" data-i18n="lb_k">04 · Engineering notebook</p>
+    <p class="kicker" data-i18n="lb_k">A1 · Engineering notebook</p>
     <h2 data-i18n="lb_t">Not "another WhatsApp bot". Here is the work underneath.</h2>
     <p class="lead" data-only="en">Every number below comes from the projects' own engineering logs, which separate what was <em>verified</em> (automated test, real hardware, measurement) from what wasn't. That habit — diagnose before touching, measure, and say plainly what is still unproven — is the method.</p>
     <p class="lead" data-only="es">Cada número de abajo sale de los registros de ingeniería de cada proyecto, que separan lo <em>verificado</em> (prueba automática, hardware real, medición) de lo que no. Ese hábito —diagnosticar antes de tocar, medir y decir claro lo que todavía no está probado— es el método.</p>
@@ -527,7 +568,7 @@ html[data-lang="en"] [data-only="es"],html[data-lang="es"] [data-only="en"]{disp
 <!-- ECOSYSTEM -->
 <section id="ecosystem">
   <div class="w rv">
-    <p class="kicker"><span data-only="en">05 · Origin &amp; ecosystem</span><span data-only="es">05 · Origen y ecosistema</span></p>
+    <p class="kicker"><span data-only="en">A2 · Origin &amp; ecosystem</span><span data-only="es">A2 · Origen y ecosistema</span></p>
     <h2><span data-only="en">It started on a tablet with Termux.</span><span data-only="es">Empezó en una tablet con Termux.</span></h2>
     <p class="lead" data-only="en">The first bot ran on an Android tablet inside Termux, with whisper.cpp compiled there for voice notes. Less than three months later it is a set of programs across Windows, Android and Linux that find each other on the network, share devices and reuse each other's ideas — built by one person, without a team or funding.</p>
     <p class="lead" data-only="es">El primer bot corría en una tablet Android dentro de Termux, con whisper.cpp compilado ahí para los audios. Menos de tres meses después es un conjunto de programas entre Windows, Android y Linux que se encuentran solos en la red, comparten dispositivos y reutilizan las ideas de los otros — hecho por una persona, sin equipo ni inversión.</p>
@@ -579,15 +620,14 @@ html[data-lang="en"] [data-only="es"],html[data-lang="es"] [data-only="en"]{disp
     <ul class="pills stack">
       <li>C# · .NET 8 · WPF/XAML</li><li>Win32 · COM interop</li><li>JavaScript · Node.js</li><li>TypeScript</li><li>React 18 · Tailwind · Vite</li><li>Prisma · SQLite · PostgreSQL</li><li>Socket.io · Express</li><li>Python</li><li>Java · Android SDK</li><li>PowerShell · Bash · Batch</li><li>HTML · CSS</li><li>Baileys (WhatsApp)</li><li>Claude API · Claude Code</li><li>NVIDIA-hosted models</li><li>whisper.cpp · Whisper</li><li>Tesseract OCR</li><li>Canary STT</li><li>WASAPI · Media Foundation</li><li>HidHide · ViGEmBus</li><li>Vitest</li><li>Termux</li>
     </ul>
-    <div class="ph" data-only="en">[ Placeholder · hours, consecutive days and Claude usage — to be filled with real figures ]</div>
-    <div class="ph" data-only="es">[ Lugar para · horas, días seguidos y uso de Claude — a completar con números reales ]</div>
+        <!-- TODO: hours, consecutive days and Claude usage, once there are real figures -->
   </div>
 </section>
 
 <!-- ARCHITECTURE -->
 <section id="architecture">
   <div class="w rv">
-    <p class="kicker" data-i18n="ar_k">06 · Architecture</p>
+    <p class="kicker" data-i18n="ar_k">A3 · Architecture</p>
     <h2 data-i18n="ar_t">How a message flows through Eon.</h2>
     <p class="lead" data-i18n="ar_l">A Node/TypeScript backend keeps several WhatsApp sessions alive through Baileys, persists with Prisma (SQLite in dev, PostgreSQL in prod), encrypts stored WhatsApp credentials with AES-256-GCM and pushes live updates to the React panel over Socket.io.</p>
     <figure class="arch" style="margin-left:0;margin-right:0">
@@ -625,32 +665,10 @@ html[data-lang="en"] [data-only="es"],html[data-lang="es"] [data-only="en"]{disp
       </svg>
       <figcaption class="legend"><span data-i18n="lg1">request / data flow</span><span class="d" data-i18n="lg2">fallback path</span></figcaption>
     </figure>
-    <div class="ph" data-i18n="ph3">[ Screenshot placeholder · React panel: CRM, audit log, live lines ]</div>
+        <!-- TODO: real screenshot goes here -->
   </div>
 </section>
 
-<!-- ROADMAP -->
-<section id="roadmap">
-  <div class="w rv">
-    <p class="kicker" data-i18n="rm_k">07 · Roadmap</p>
-    <h2 data-i18n="rm_t">Where it goes next.</h2>
-    <ol class="road">
-      <li><span class="st" data-i18n="r1s">Now</span><h3 data-i18n="r1t">Prove it with Sedes</h3><ul><li data-i18n="r1a">Keep the live club deployment solid</li><li data-i18n="r1b">Sell Sedes to more clubs through Sonriar</li></ul></li>
-      <li><span class="st" data-i18n="r2s">Next</span><h3 data-i18n="r2t">More verticals</h3><ul><li data-i18n="r2a">Bring Multiservicios Santa Cruz and the hotel bot to real users</li><li data-i18n="r2b">Publish screenshots and a product video</li></ul></li>
-      <li><span class="st" data-i18n="r3s">Later</span><h3 data-i18n="r3t">Open the platform</h3><ul><li data-i18n="r3a">Let more small businesses onboard onto the multi-tenant core</li><li data-i18n="r3b">Deepen what Claude does inside each bot</li></ul></li>
-    </ol>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact" class="contact">
-  <div class="w rv">
-    <p class="kicker" style="justify-content:center" data-i18n="ct_k">08 · Contact</p>
-    <h2 data-i18n="ct_t">Let's talk.</h2>
-    <p class="lead" data-i18n="ct_ld">Happy to walk through the code, the architecture or a live demo.</p>
-    <div class="ctas"><a class="btn p" href="mailto:juan@eonplatform.eu.org">juan@eonplatform.eu.org</a></div>
-  </div>
-</section>
 </main>
 
 <footer>
@@ -692,7 +710,7 @@ html[data-lang="en"] [data-only="es"],html[data-lang="es"] [data-only="en"]{disp
     ho_t:"Bot de hotel",ho_l:"Un asistente para huéspedes por WhatsApp que responde preguntas y consultas de un hotel.",
     mt_t:"Plataforma multi-tenant",mt_l:"El núcleo: espacios aislados por negocio, roles de admin/operador, CRM, auditoría completa y un panel en tiempo real.",
     vid:"[ Lugar para video futuro · recorrida del producto ]",
-    cl_k:"03 · Cómo usa Claude Eon",cl_t:"Claude en el producto, y Claude construyéndolo.",
+    cl_k:"03 · El ciclo Claude",cl_t:"Claude en el producto, y Claude construyéndolo.",
     cl_l:"Dos roles: Claude es el proveedor principal de IA detrás de cada bot, y Claude Code es lo que le permite a una sola persona sacar una plataforma de este tamaño.",
     cp_t:"En producción",cp1b:"Proveedor principal",cp1:"Claude maneja las conversaciones y, con visión, lee comprobantes de pago y fotos de carnet.",
     cp2b:"Respaldo automático",cp2:"Si Claude falla o tarda, contesta una carrera de modelos de NVIDIA; a los 15 s sale una respuesta segura.",
@@ -700,15 +718,15 @@ html[data-lang="en"] [data-only="es"],html[data-lang="es"] [data-only="en"]{disp
     cd_t:"En desarrollo",cd1b:"Todo con Claude Code",cd1:"Backend, panel, bots y proyectos paralelos se escriben con Claude Code.",
     cd2b:"Revisiones de seguridad y tests",cd2:"Los cambios pasan por revisiones de seguridad y tests antes de mergearse.",
     cd3b:"Sesiones en la nube → pull requests",cd3:"El trabajo corre en sesiones de Claude Code en la nube y entra como PRs revisados — incluida esta página.",
-    lb_k:"04 · Cuaderno de ingeniería",lb_t:"No es \"otro bot de WhatsApp\". Esto es lo que hay abajo.",
-    b1:"Sin arreglo",b2:"Con arreglo",ar_k:"06 · Arquitectura",ar_t:"Cómo viaja un mensaje por Eon.",
+    lb_k:"A1 · Cuaderno de ingeniería",lb_t:"No es \"otro bot de WhatsApp\". Esto es lo que hay abajo.",
+    b1:"Sin arreglo",b2:"Con arreglo",ar_k:"A3 · Arquitectura",ar_t:"Cómo viaja un mensaje por Eon.",
     ar_l:"Un backend en Node/TypeScript mantiene vivas varias sesiones de WhatsApp con Baileys, guarda con Prisma (SQLite en desarrollo, PostgreSQL en producción), cifra las credenciales de WhatsApp con AES-256-GCM y empuja actualizaciones en vivo al panel React por Socket.io.",
     lg1:"flujo de pedidos / datos",lg2:"camino de respaldo",ph3:"[ Lugar para captura · panel React: CRM, auditoría, líneas en vivo ]",
-    rm_k:"07 · Hoja de ruta",rm_t:"Para dónde va.",
+    rm_k:"04 · Hoja de ruta",rm_t:"Para dónde va.",
     r1s:"Ahora",r1t:"Probarlo con Sedes",r1a:"Mantener sólida la instalación en el club",r1b:"Venderle Sedes a más clubes a través de Sonriar",
     r2s:"Después",r2t:"Más verticales",r2a:"Llevar Multiservicios Santa Cruz y el bot de hotel a usuarios reales",r2b:"Publicar capturas y un video del producto",
     r3s:"Más adelante",r3t:"Abrir la plataforma",r3a:"Que más negocios chicos se sumen al núcleo multi-tenant",r3b:"Profundizar lo que hace Claude dentro de cada bot",
-    ct_k:"08 · Contacto",ct_t:"Hablemos.",ct_ld:"Con gusto te muestro el código, la arquitectura o una demo en vivo.",
+    ct_k:"05 · Contacto",ct_t:"Hablemos.",ct_ld:"Con gusto te muestro el código, la arquitectura o una demo en vivo.",
     ft:"Co-creado por JuanKLimoN y Claude."
   };
   var EN={};
